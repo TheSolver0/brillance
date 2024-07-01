@@ -1,0 +1,31 @@
+/*==================STYLE DE LA FENETRE MODALE DE CHARGEMENT======================*/
+#loader_img{
+    width:50px;
+    height:50px;
+    margin: 0px auto;
+}
+#loader_signature{
+    width: 100px;height:25px;
+    margin: auto;border:none;
+}
+#load_modal {
+    text-align: center;
+    padding: 0!important;
+}
+
+#load_modal:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -4px;
+}
+
+#load_modal .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+#loader_title{text-align:center;}
+
+/*==================>>FIN<<==STYLE DE LA FENETRE MODALE DE CHARGEMENT======================*/
