@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CandidatController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
-Route::get('/test', function () {
-    return view('test');
-});
+    // Route::get('/', function () {
+    //     return view('index');
+    // });
+Route::get('/Vote', function () {
+    return view('notif');
+})->name('notif');
+Route::resource('/', CandidatController::class);
+Route::get('/brillance@dmin', [CandidatController::class, 'getCandidats']);
+Route::get('/voter/{code}', [CandidatController::class, 'addVote'])->name('voter');
+Route::resource('/', CandidatController::class);
+

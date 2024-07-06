@@ -31,11 +31,11 @@
 
 
     <!-- AniCollection.css library -->
-    <link rel="stylesheet" href="https://anijs.github.io/lib/anicollection/anicollection.css">
+    {{-- <link rel="stylesheet" href="https://anijs.github.io/lib/anicollection/anicollection.css"> --}}
 
     <link href=" assets/slider/css/style.css" rel="stylesheet">
 
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    {{-- <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> --}}
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@700&amp;display=swap" rel="stylesheet">
@@ -145,71 +145,138 @@
                     <div class="hi-prev "></div>
                     <div class="hi-next "></div>
                     <ul>
-                        <li style="z-index: 1; width: 120px; height: 150px; top: 69px; left: 500px;"><a
-                                class="profile-img" href=" candidate?appkey=8.aspx" target="_blank">
-                                <img src=" /../assets/img/candidats/CDT8.jpeg" alt="N°8" style="opacity: 0.2;">
-                                <small>NDI SÉRÉNA <br> CATEGORIE MSC | <b>4156 VOTES</b></small>
-                            </a></li>
-                        <li style="z-index: 1; width: 120px; height: 150px; top: 69px; left: 134px;"><a
-                                class="profile-img" href=" candidate?appkey=13.aspx" target="_blank">
-                                <img src=" /../assets/img/candidats/CDT19.jpeg" alt="N°13" style="opacity: 0.2;">
-                                <small>DJUFFO FOMENA JOËLLE <br> CATEGORIE MSC | <b>4076 VOTES</b></small>
-                            </a></li>
-                        <li style="z-index: 2; width: 130px; height: 170px; top: 59px; left: 0px;"><a
-                                class="profile-img" href=" candidate?appkey=17.aspx" target="_blank">
-                                <img src=" /../assets/img/candidats/CDT4.jpg" alt="N°17" style="opacity: 0.4;">
-                                <small>BELINGA AUDREY CARLA <br> CATEGORIE MSC | <b>3285 VOTES</b></small>
-                            </a></li>
-                        <li style="z-index: 3; width: 170px; height: 218px; top: 35px; left: 110px;"><a
-                                class="profile-img" href=" candidate?appkey=18.aspx" target="_blank">
-                                <img src=" /../assets/img/candidats/CDT8.jpg" alt="N°18" style="opacity: 0.7;">
-                                <small>AMOUGOU ATANGANA LOUISE <br> CATEGORIE MSC | <b>2560 VOTES</b></small>
-                            </a></li>
-                        <li style="z-index: 4; width: 224px; height: 288px; top: 0px; left: 263px;"><a
-                                class="profile-img" href=" candidate?appkey=4.aspx" target="_blank">
-                                <img src=" /../assets/img/candidats/CDT13.jpeg" alt="N°4" style="opacity: 1;">
-                                <small>JADE-JOËLLE NDEMA D'EBWEA <br> CATEGORIE MSC | <b>1667 VOTES</b></small>
-                            </a></li>
-                        <li style="z-index: 3; width: 170px; height: 218px; top: 35px; left: 470px;"><a
-                                class="profile-img" href=" candidate?appkey=6.aspx" target="_blank">
-                                <img src=" /../assets/img/candidats/CDT20.jpeg" alt="N°6" style="opacity: 0.7;">
-                                <small>SONO EPOH ELISE ASHLEY <br> CATEGORIE MSC | <b>1237 VOTES</b></small>
-                            </a></li>
-                        <li style="z-index: 2; width: 130px; height: 170px; top: 59px; left: 620px;"><a
-                                class="profile-img" href=" candidate?appkey=5.aspx" target="_blank">
-                                <img src=" /../assets/img/candidats/CDT27.jpeg" alt="N°5" style="opacity: 0.4;">
-                                <small>SIEMENI PANA ÉTIENNE ÉVODIE <br> CATEGORIE MSC | <b>528 VOTES</b></small>
-                            </a></li>
+                        @for($i = $candidats->count() ; $i < 8 ; $i++)
+
+                        @foreach ($candidats as $candidat)
+                            <li style="z-index: 1; width: 120px; height: 150px; top: 69px; left: 500px;">
+                                <a
+                                class="profile-img" href="{{'https://wa.me/237686231985/?text=Vote%20Candidat%20'.$candidat->id}}" target="_blank">
+                                <img src="{{asset("$candidat->path")}}" alt="N°8" style="opacity: 0.2;">
+                                <small>{{$candidat->name}}<br> CATEGORIE {{$candidat->categorie}} | <b> {{$candidat->vote}} VOTES</b></small>
+                                </a>
+                            </li>
+
+                        @endforeach
+                        @endfor
+
                     </ul>
-                </div><br>
+                </div>
+                <br>
 
 
 
-                <form class="form-inline" role="form">
-                    <a href="#" class="ebtn btn-sm" onclick="liste_candidates_ajax('MSC');">
+                <div class="form-inline" role="form">
+                    <button  class="ebtn btn-sm" id="affichechoix">
                         <span class="btn-content" style="font-weight: 700;">Voter maintenant</span>
                         <span class="icon"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
-                    </a>
-                </form>
+                    </button> <br> <br>
+                    <div id="choixcategorie" style="display: none;">
+                        <button  class="ebtn btn-sm" id="afficheCandidatsmiss">
+                            <span class="btn-content" style="font-weight: 700;">Miss</span>
+                            <span class="icon"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+                        </button>
+                        <button  class="ebtn btn-sm" id="afficheCandidatsmaster">
+                            <span class="btn-content" style="font-weight: 700;">Master</span>
+                            <span class="icon"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+                        </button>
+                    </div>
+
+                </div>
             </div>
 
-            <section class="section section-pricing hidde2 js-scroll-counter scroll-counter" id="space_categoriser">
+            <section class="section section-pricing hidde2 js-scroll-counter scroll-counter" id="candidatsmiss" style="display: none;">
                 <div id="lgx-speakers" class="lgx-speakers lgx-speakers42 aos-all">
                     <div class="lgx-inner2">
                         <div class="container" id="zone_result_ajax">
                             <div class="row aos-init aos-animate" data-aos="fade-up" data-aos-duration="3000">
-                                <div class="col-xs-12 col-sm-6 col-md-4 aos-init aos-animate" data-aos="fade-up"
+                                @foreach ($candidatsmiss as $index => $candidat)
+
+                                    <div class="col-xs-12 col-sm-6 col-md-4 aos-init aos-animate" data-aos="fade-up"
                                     data-aos-duration="3000">
                                     <div class="lgx-single-speaker2 lgx-single-speaker3">
                                         <a class="profile-img"
-                                            href="https://www.academic.missante.cm/candidate?appkey=1.aspx"
+                                            href=""
                                             target="_blank">
                                         </a>
                                         <figure>
                                             <a class="profile-img"
                                                 href="https://www.academic.missante.cm/candidate?appkey=1.aspx"
                                                 target="_blank">
-                                                <img src="https://www.academic.missante.cm//../assets/img/candidats/1709412006.jpg"
+                                                <img src="{{asset("$candidat->path")}}"
+                                                    alt="CDT" style="max-height:860px;">
+                                            </a>
+                                            <figcaption>
+                                                <a class="profile-img"
+                                                    target="_blank">
+                                                </a>
+                                                <div class="social-group"><a class="profile-img"
+                                                        target="_blank">
+                                                    </a><a class="sp-tw" href="#"><i
+                                                            class="fa fa-twitter"></i></a>
+                                                    <a class="sp-fb" href="#"><i
+                                                            class="fa fa-facebook"></i></a>
+                                                    <a class="sp-insta" href="#"><i
+                                                            class="fa fa-instagram"></i></a>
+                                                    <a class="sp-in" href="#"><i
+                                                            class="fa fa-linkedin"></i></a>
+                                                </div>
+                                                <div class="speaker-info">
+                                                    <table class="table table-stripped tabDashbord">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td colspan="3" class="user"><i
+                                                                        class="fa fa-user"></i>&nbsp;{{$candidat->name}}</td>
+                                                            </tr>
+                                                            <tr class="lib">
+                                                                {{-- <td><i class="fa fa-tags"></i>&nbsp;1</td> --}}
+                                                                <td><i class="fa fa-heart"></i>&nbsp;{{$candidat->votes}} Votes</td>
+                                                                <td><i
+                                                                        class="fa fa-sort-numeric-asc"></i>&nbsp;{{$index+1}}<small><sup>ère</sup></small>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <a id="btn-voter1" class="lgx-btn lgx-btn-red"
+                                                        href="https://wa.me/237691223089?text=Bonjour%20Brillance%20je%20viens%20pour%20voter%20pour%20le%20candidat%20{{$candidat->name}}%20d'identifiant%20{{$candidat->id}}"
+                                                        {{-- href="route('candidat.vote')" --}}
+                                                        style="color:#fff;margin-top:3px;margin-bottom:3px;"
+                                                        >
+                                                        <i class="fa fa-heart"></i>&nbsp;Voter
+                                                    </a>
+                                                </div>
+                                            </figcaption>
+                                        </figure>
+
+                                    </div>
+                                </div>
+
+
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <section class="section section-pricing hidde2 js-scroll-counter scroll-counter" id="candidatsmaster" style="display: none;">
+                <div id="lgx-speakers" class="lgx-speakers lgx-speakers42 aos-all">
+                    <div class="lgx-inner2">
+                        <div class="container" id="zone_result_ajax">
+                            <div class="row aos-init aos-animate" data-aos="fade-up" data-aos-duration="3000">
+                                @foreach ($candidatsmaster as $index => $candidat)
+
+                                    <div class="col-xs-12 col-sm-6 col-md-4 aos-init aos-animate" data-aos="fade-up"
+                                    data-aos-duration="3000">
+                                    <div class="lgx-single-speaker2 lgx-single-speaker3">
+                                        <a class="profile-img"
+                                            href=""
+                                            target="_blank">
+                                        </a>
+                                        <figure>
+                                            <a class="profile-img"
+                                                href="https://www.academic.missante.cm/candidate?appkey=1.aspx"
+                                                target="_blank">
+                                                <img src="{{asset("$candidat->path")}}"
                                                     alt="CDT" style="max-height:860px;">
                                             </a>
                                             <figcaption>
@@ -234,84 +301,33 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td colspan="3" class="user"><i
-                                                                        class="fa fa-user"></i>&nbsp;Anne Yobo</td>
+                                                                        class="fa fa-user"></i>&nbsp;{{$candidat->name}}</td>
                                                             </tr>
                                                             <tr class="lib">
-                                                                <td><i class="fa fa-tags"></i>&nbsp;1</td>
-                                                                <td><i class="fa fa-heart"></i>&nbsp;0 Vote</td>
+                                                                {{-- <td><i class="fa fa-tags"></i>&nbsp;1</td> --}}
+                                                                <td><i class="fa fa-heart"></i>&nbsp;{{$candidat->votes}} Votes</td>
                                                                 <td><i
-                                                                        class="fa fa-sort-numeric-asc"></i>&nbsp;1<small><sup>ère</sup></small>
+                                                                        class="fa fa-sort-numeric-asc"></i>&nbsp;{{$index+1}}<small><sup>ère</sup></small>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <a id="btn-voter1" class="lgx-btn lgx-btn-red hidden"
-                                                        href="javascript:void(0);"
+                                                    <a id="btn-voter1" class="lgx-btn lgx-btn-red"
+                                                        href="https://wa.me/237691223089?text=Bonjour%20Brillance%20je%20viens%20pour%20voter%20pour%20le%20candidat%20{{$candidat->name}}%20d'identifiant%20{{$candidat->id}}"
+                                                        {{-- href="route('candidat.vote')" --}}
                                                         style="color:#fff;margin-top:3px;margin-bottom:3px;"
-                                                        onclick="detail_vote('1');"><i
-                                                            class="fa fa-heart"></i>&nbsp;Voter</a>
+                                                        >
+                                                        <i class="fa fa-heart"></i>&nbsp;Voter
+                                                    </a>
                                                 </div>
                                             </figcaption>
                                         </figure>
 
                                     </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-6 col-md-4 aos-init aos-animate" data-aos="fade-up"
-                                    data-aos-duration="3000">
-                                    <div class="lgx-single-speaker2 lgx-single-speaker3">
-                                        <a class="profile-img"
-                                            href="https://www.academic.missante.cm/candidate?appkey=2.aspx"
-                                            target="_blank">
-                                        </a>
-                                        <figure><a class="profile-img"
-                                                href="https://www.academic.missante.cm/candidate?appkey=2.aspx"
-                                                target="_blank">
-                                                <img src="https://www.academic.missante.cm//../assets/img/candidats/1711016222.jpg"
-                                                    alt="CDT" style="max-height:860px;">
-                                            </a>
-                                            <figcaption><a class="profile-img"
-                                                    href="https://www.academic.missante.cm/candidate?appkey=2.aspx"
-                                                    target="_blank">
-                                                </a>
-                                                <div class="social-group"><a class="profile-img"
-                                                        href="https://www.academic.missante.cm/candidate?appkey=2.aspx"
-                                                        target="_blank">
-                                                    </a><a class="sp-tw" href="#"><i
-                                                            class="fa fa-twitter"></i></a>
-                                                    <a class="sp-fb" href="#"><i
-                                                            class="fa fa-facebook"></i></a>
-                                                    <a class="sp-insta" href="#"><i
-                                                            class="fa fa-instagram"></i></a>
-                                                    <a class="sp-in" href="#"><i
-                                                            class="fa fa-linkedin"></i></a>
-                                                </div>
-                                                <div class="speaker-info">
-                                                    <table class="table table-stripped tabDashbord">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td colspan="3" class="user"><i
-                                                                        class="fa fa-user"></i>&nbsp;Anne Yobo</td>
-                                                            </tr>
-                                                            <tr class="lib">
-                                                                <td><i class="fa fa-tags"></i>&nbsp;2</td>
-                                                                <td><i class="fa fa-heart"></i>&nbsp;0 Vote</td>
-                                                                <td><i
-                                                                        class="fa fa-sort-numeric-asc"></i>&nbsp;2<small><sup>ème</sup></small>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <a id="btn-voter2" class="lgx-btn lgx-btn-red hidden"
-                                                        href="javascript:void(0);"
-                                                        style="color:#fff;margin-top:3px;margin-bottom:3px;"
-                                                        onclick="detail_vote('2');"><i
-                                                            class="fa fa-heart"></i>&nbsp;Voter</a>
-                                                </div>
-                                            </figcaption>
-                                        </figure>
 
-                                    </div>
-                                </div>
+
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -461,43 +477,6 @@
     <!-- FENETRES INFORMATIONS END-->
 
     <!-- FENETRES CONNEXION-->
-    <div id="myModal_connexion" data-backdrop="static" class="modal fade bs-example-modal-xs"
-        style="color: rgb(0, 0, 0); display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-xs modal-dialog-centered">
-            <div class="modal-content" style="background: #bdc3c7!important;">
-                <div class="modal-header head-table">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">Connexion à mon compte</h4>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" id="formConnect">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label><span class="obligatoire">*</span>N° de téléphone</label>
-                                <input type="text" name="login" class="form-control" id="login"
-                                    maxlength="9" pattern="^6[98765][0-9]{7}$" required="">
-                            </div>
-                            <div class="col-sm-12">
-                                <label><span class="obligatoire">*</span>Mot de passe</label>
-                                <input type="password" name="pswd" class="form-control" id="pswd"
-                                    required="">
-                            </div>
-                            <div class="col-sm-12">
-                                <button type="submit" class="btn btn-action lgx-btn2" id="btnConnect"
-                                    style="width:100%;margin-top: 10px;">
-                                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Connexion
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Fermer </button>
-            </div>
-        </div>
-    </div>
 
     <!-- FENETRES CONNEXION END-->
 
@@ -536,126 +515,6 @@
     </div>
 
     <!--Infos Modal HTML -->
-    <div id="myModal_inscription" class="modal fade lgx-modal" style="color:#fff;">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <form action="" method="POST" id="formInscription">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">INSCRIPTION A L'EDITION 2024</h4>
-                    </div>
-                    <div class="modal-body">
-
-                        <style type="text/css">
-                            .obligatoire,
-                            .text-rouge {
-                                color: #c0392b;
-                                font-weight: 600;
-                                font-size: 16px;
-                            }
-
-                            .majuscule {
-                                text-transform: uppercase;
-                            }
-                        </style>
-
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label><span class="obligatoire">*</span>Votre nom</label>
-                                <input type="text" name="nom" class="form-control majuscule requis"
-                                    id="nom" required="">
-                            </div>
-                            <div class="col-sm-4">
-                                <label><span class="obligatoire">*</span>Catégorie</label>
-                                <select name="categorie" class="form-control ipText requis" id="categorie"
-                                    required="">
-                                    <option value="">--CHOISIR--</option>
-                                    <option value="MSC"> Talents Holidays 2024</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-2">
-                                <label><span class="obligatoire"></span>Badge</label>
-                                <input type="number" name="badge" class="form-control" id="badge">
-                            </div>
-                        </div>
-
-                        <div class="row hidden">
-                            <div class="col-sm-3">
-                                <label><span class="obligatoire"></span>taille</label>
-                                <input type="number" name="poids" class="form-control" id="poids">
-                            </div>
-                            <div class="col-sm-3">
-                                <label><span class="obligatoire"></span>Age</label>
-                                <input type="number" name="age" class="form-control" id="age">
-                            </div>
-                            <div class="col-sm-6">
-                                <label><span class="obligatoire">*</span>Profession</label>
-                                <input type="text" name="profession" class="form-control majuscule requis"
-                                    id="profession">
-                            </div>
-                        </div>
-
-                        <div class="row hidden">
-
-                            <div class="col-sm-4 hidden">
-                                <label><span class="obligatoire">*</span>Type/plan d'inscription</label>
-                                <select name="standing" class="form-control requis" id="standing">
-                                    <option value="CLASSIQUE">CLASSIQUE</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-4 hidden">
-                                <label><span class="obligatoire">*</span>Région d'origine</label>
-                                <select name="region" class="form-control requis" id="region">
-                                    <option value="">--CHOISIR--</option>
-                                    <option value="ADAMAOUA">ADAMAOUA</option>
-                                    <option value="CENTRE">CENTRE</option>
-                                    <option value="EST">EST</option>
-                                    <option value="EXTREME-NORD">EXTREME-NORD</option>
-                                    <option value="LITTORAL">LITTORAL</option>
-                                    <option value="NORD">NORD</option>
-                                    <option value="NORD-OUEST">NORD-OUEST</option>
-                                    <option value="OUEST">OUEST</option>
-                                    <option value="SUD">SUD</option>
-                                    <option value="SUD-OUEST">SUD-OUEST</option>
-                                </select>
-                            </div>
-                        </div>
-
-
-
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label><span class="obligatoire">*</span>Choisir une photo</label>
-                                <input type="FILE" name="fichier" class="form-control" id="fichier"
-                                    onchange="send_fichier();" accept="image/*" required="">
-                                <input type="hidden" name="photoEDIT" class="form-control" id="photoEDIT">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 hidden" id="img-loader">
-                                <p style="text-align:center;"><i
-                                        class="fa fa-spinner fa-spin fa-fw fa-2x"></i>Chargement de la photo...</p>
-                            </div>
-                        </div>
-
-
-
-                        <div class="row">
-                            <div class="col-sm-12"><label><small><span class="text-rouge">Tous les champs contenants *
-                                            sont obligatoires</span></small></label></div>
-                        </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="lgx-btn" id="btnSaveInscription">
-                            <span class="glyphicon glyphicon-send" aria-hidden="true"></span> Enregistrer mon
-                            inscription </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
     <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
     <script src="https://connect.facebook.net/en_US/sdk.js?hash=3991a4d48589f1c7f5f9b84ec12a0403" async=""
@@ -738,7 +597,29 @@
             clock.setCountdown(true);
             clock.start();
 
+
         });
+
+        // $('#categorie').hide();
+
+        $("#affichechoix").on('click', function(e)
+            {
+                e.preventDefault();
+                $('#choixcategorie').show(1000);
+            });
+        $("#afficheCandidatsmiss").on('click', function(e)
+            {
+                e.preventDefault();
+                $('#candidatsmaster').hide(1000);
+                $('#candidatsmiss').toggle(1000);
+            });
+        $("#afficheCandidatsmaster").on('click', function(e)
+            {
+                e.preventDefault();
+                $('#candidatsmiss').hide(1000);
+                $('#candidatsmaster').toggle(1000);
+            });
+
     </script>
 
 

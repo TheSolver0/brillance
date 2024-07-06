@@ -8746,7 +8746,7 @@ lgx-zoomInUp
   opacity: 1;
 }
 .lgx-single-speaker2:hover .speaker-info {
-  background: #1b273d;
+  /* background: #1b273d; */
 }
 .lgx-single-speaker2:hover .speaker-info .title {
   color: #fff;
